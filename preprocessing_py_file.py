@@ -110,6 +110,17 @@ def preprocess_category(review_tar_path, meta_tar_path, output_folder, category,
     shutil.rmtree(temp_path)
     print("All done, temp folder removed.")
 
+# This function handles the extraction of the brands
+def extract_brand(details, store):
+    try:
+        if isinstance(details, dict) and "brand" in details and details["brand"]:
+            return details["brand"]
+    except Exception:
+        pass
+    if isinstance(store, str) and store.strip():
+        return store
+    return "Unknown"
+
 # This function converts the pkl files to dataframes by taking in the pkl directories
 # feed the review pkl path with the category to here followed by the meta with the category
 # there is 2 separate calls to this function in the for loop below
@@ -198,7 +209,7 @@ for category in categories:
         print(f"{rev_pkl} path does not exist")
 
     if os.path.exists(meta_pkl):
-    shutil.rmtree(meta_pkl)
+        shutil.rmtree(meta_pkl)
     else:
-    print(f"{meta_pkl} path does not exist")
+        print(f"{meta_pkl} path does not exist")
 
